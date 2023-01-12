@@ -1,0 +1,30 @@
+from collections import defaultdict
+
+
+def solution(n, com):
+    # 그래프 딕셔너리 구성
+    answer = 0
+    net = defaultdict(list)
+    for i in range(n):
+        for j in range(n):
+            if com[i][j] == 1 and i != j:
+                net[i].append(j)
+    visited = [0 for _ in range(n)]
+    for i in range(n):
+        if visited[i] == 0:
+            visited = dfs(i, net, visited)
+            answer += 1
+    return answer
+
+
+def dfs(vertex, graph, visited):
+    if visited[vertex] == 0:
+        visited[vertex] = 1
+        for i in graph[vertex]:
+            dfs(i, graph, visited)
+    return visited
+
+
+n = 3
+a = [[1, 1, 0], [1, 1, 0], [0, 0, 1]]
+solution(n, a)

@@ -1,0 +1,41 @@
+from collections import defaultdict
+
+
+def solution(n, res):
+    graphW = defaultdict(list)
+    graphL = defaultdict(list)
+    rank = [0 for _ in range(n+1)]
+    visited = []
+    for i in range(len(res)):
+        graphW[res[i][0]].append(res[i][1])
+        graphL[res[i][1]].append(res[i][0])
+    for i in range(1, n+1):
+
+        visited.clear()
+        visit = dfs(i, graphW, visited)
+        for j in range(len(visit)):
+            rank[visit[j]] += 1
+
+        visited.clear()
+        visit = dfs(i, graphL, visited)
+        for j in range(len(visit)):
+            rank[visit[j]] += 1
+
+    answer = 0
+    for i in range(n+1):
+        if rank[i] == n+1:
+            answer += 1
+    return answer
+
+
+def dfs(vertex, graph, visited):
+    if vertex not in visited:
+        visited.append(vertex)
+        for i in graph[vertex]:
+            dfs(i, graph, visited)
+    return visited
+
+
+n = 5
+a = [[4, 3], [4, 2], [3, 2], [1, 2], [2, 5]]
+solution(n, a)

@@ -1,0 +1,49 @@
+import sys
+
+
+# 일반적인 피보나치 재귀 함수
+def fib(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        f = fib(n-1)+fib(n-2)
+        return f
+
+
+# Top-Bottom 식 DP 수행
+# 재귀함수를 이용. 중복된 분할 문제 값을 저장함으로써 수행 시간을 줄일 수 있다.
+# 중복된 분할 문제 값을 fib_arry를 이용하여 저장
+# 이 때, 재귀함수 피보나치의 시간복잡도는 O(n^2) 이지만, DP를 수행함으로써 O(n)으로 줄일 수 있다.
+fib_arry = [0, 1]
+
+
+def fib_dp_tb(n):
+    if n < len(fib_arry):
+        return fib_arry[n]
+    else:
+        fib_arry.append(fib_dp_tb(n-1)+fib_dp_tb(n-2))
+
+
+# Bottom-Up 식 DP 수행
+# 이전 재귀함수 피보나치 Top-Bottom식 DP 수행에 있어서 recursion stack이 초과되는 경우가 발생한다.
+# O(n)의 공간 복잡도를 가지기 때문이다.
+# Bottom-Up 방식의 DP 수행은 작은 분할 문제에서 출발하여 전체 문제를 해결한다.
+# 해당 경우 Top-Bottom 식과 같이 시간복잡도는 O(n)이지만 이전 배열값에 대한 삭제가 가능하기 때문에
+# O(1)의 공간복잡도를 가진다.
+def fib_dp_bu(n):
+    if n == 0:
+        return 0
+    elif n == 1:
+        return 1
+    fib_arry_bu = [0, 1]
+    for i in range(2, n+1):
+        fib_arry_bu.append(fib_arry_bu[i-1]+fib_arry_bu[i-2])
+    return fib_arry_bu[n]
+
+
+a = int(sys.stdin.readline())
+print(fib(a))
+print(fib_dp_tb(a))
+print(fib_dp_bu(a))

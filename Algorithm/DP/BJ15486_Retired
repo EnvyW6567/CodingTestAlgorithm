@@ -1,0 +1,11 @@
+import sys
+
+
+def solution(lines):
+    for idx, time in enumerate(lines):
+        time = time.split(' ')
+    print(time)
+
+
+a = sys.stdin.readline()
+solution(a)

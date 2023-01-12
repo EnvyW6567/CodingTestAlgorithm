@@ -1,0 +1,30 @@
+def solution(N, number):
+    answer = -1
+    result = {}
+    result[1] = {N}
+    # 주어진 숫자가 N 일 경우
+    if number == N:
+        return 1
+    for n in range(2, 9):
+        i = 1
+        temp = {int(str(N)*n)}  # N, NN, NNN ... 경우를 먼저 고려
+        while i < n:
+            temp.update(calculate(result[i], result[n-i]))
+            i += 1
+        if number in temp:
+            answer = n
+            break
+        result[n] = temp
+    return answer
+
+
+def calculate(X, Y):
+    n_set = set()
+    for x in X:
+        for y in Y:
+            n_set.add(x+y)
+            n_set.add(x-y)
+            n_set.add(x*y)
+            if y != 0:
+                n_set.add(x//y)
+    return n_set
