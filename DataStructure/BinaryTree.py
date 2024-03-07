@@ -1,8 +1,8 @@
 class Node:
-    def __init__(self, value=None, valueL=None, valueR=None):
+    def __init__(self, value=None, value_l=None, value_r=None):
         self.value = value
-        self.left = valueL
-        self.right = valueR
+        self.left = value_l
+        self.right = value_r
 
 
 class BinaryTree:
@@ -12,31 +12,31 @@ class BinaryTree:
     # 트리 삽입 과정
     def push(self, value):
         node = Node(value=value)
-        tmpNode = self.root
+        tmp_node = self.root
 
         if self.root:
-            ptrNode = self.root
-            while ptrNode:
-                tmpNode = ptrNode
-                if node.value < ptrNode.value:
-                    ptrNode = ptrNode.left
+            ptr_node = self.root
+            while ptr_node:
+                tmp_node = ptr_node
+                if node.value < ptr_node.value:
+                    ptr_node = ptr_node.left
                 else:
-                    ptrNode = ptrNode.right
-            if node.value < tmpNode.value:
-                tmpNode.left = node
+                    ptr_node = ptr_node.right
+            if node.value < tmp_node.value:
+                tmp_node.left = node
             else:
-                tmpNode.right = node
+                tmp_node.right = node
         else:
             self.root = node
             return
 
-    def removeNode(self, value):
+    def remove_node(self, value):
         tmp = self.root
         self.pop(tmp, value)
 
     # 재귀를 통한 탐색 및 pop 함수
     def pop(self, node, value):
-        if node == None:
+        if node is None:
             return -1
         elif node.value > value:
             node.left = self.pop(node.left, value)
@@ -44,13 +44,13 @@ class BinaryTree:
             node.right = self.pop(node.right, value)
         else:
             tmp = node
-            if node.left == None and node.right == None:
+            if node.left is None and node.right is None:
                 del node
                 node = None
-            elif node.right == None:
+            elif node.right is None:
                 node = node.left
                 del tmp
-            elif node.left == None:
+            elif node.left is None:
                 node = node.right
                 del tmp
             else:
