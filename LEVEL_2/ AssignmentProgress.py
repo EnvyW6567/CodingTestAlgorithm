@@ -35,6 +35,7 @@ def convert_plan_to_minute(plan):
     endMinute = startMinute + int(takeTime)
     return assignment, startMinute, endMinute
 
+
 plans_input = [["science", "12:40", "50"], ["music", "12:20", "40"], ["history", "14:00", "30"],
                ["computer", "12:30", "100"]]
 solution(plans_input)
